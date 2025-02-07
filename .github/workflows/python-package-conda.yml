@@ -1,36 +1,29 @@
-name: lighning ai
+name: Run Soul Workflow
 
 on:
-  workflow_dispatch:
-
+  push:
+    branches:
+      - main
+  
 jobs:
-  build-linux:
-    runs-on: ubuntu-latest 
+  run_soul_workflow:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Install SSH and Set Password
+      - name: Check out the code
+        uses: actions/checkout@v2
+
+      
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+
+      - name: Install required packages
         run: |
-          sudo apt update && sudo apt install -y openssh-server curl
-          sudo service ssh start
+          pip install tmate
 
-          # Set a password for the 'runner' user
-          echo "runner:Sanjay@21" | sudo chpasswd
-
-          # Allow password authentication in SSH
-          sudo sed -i 's/^#PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
-          sudo sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-          sudo systemctl restart ssh
-
-      - name: Start SSH
+      - name: Run soul.py
         run: |
-          sudo apt update && pip install tmate
-
-          
-
-      - name: Display SSH Connection Info
-        run: tmate
-
-      - name: Keep Runner Alive
-        run: sleep infinity
-        
-        run: python3 24x7.py
+          tmate
+          python3 24x7.py

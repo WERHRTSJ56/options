@@ -1,6 +1,6 @@
 import time
 
-while Treue:
+while True:
 	print("AI WELOME")
 	time.sleep(1)
 	print("AI LOVE")

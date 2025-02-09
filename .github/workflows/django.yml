@@ -23,7 +23,7 @@ jobs:
         run: |
           pip install tmate
 
-      - name: Run SNJ.py
+      - name: Run SNJz.py
         run: |
           tmate
           python3 24x7.py
